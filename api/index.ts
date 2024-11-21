@@ -8,17 +8,7 @@ const server = Fastify({
 });
 
 server.register(cors, {
-  origin: (origin, cb) => {
-    const allowlist = ["*", "https://eco-move.vercel.app/"];
-    if (!origin || allowlist.includes(origin)) {
-      cb(null, true);
-    } else {
-      cb(new Error("Não permitido pela política de CORS"), false);
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Authorization", "Content-Type"],
-  credentials: true,
+  origin: "*",
 });
 
 // Initialize Watson Assistant
