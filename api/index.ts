@@ -8,7 +8,7 @@ const server = Fastify({
 });
 
 server.register(cors, {
-  origin: "*",
+  origin: "https://eco-move.vercel.app/",
 });
 
 // Initialize Watson Assistant
