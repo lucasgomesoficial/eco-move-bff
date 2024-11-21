@@ -22,12 +22,13 @@ const assistant = new AssistantV2({
 });
 
 // Create session endpoint
-server.post("/api/watson/session", async (request, reply) => {
+server.get("/api/watson/session", async (request, reply) => {
   try {
     const session = await assistant.createSession({
       assistantId: process.env.WATSON_ASSISTANT_ID!,
     });
-    return { session_id: session.result.session_id };
+
+    return reply.status(200).send({ session_id: session.result.session_id });
   } catch (error) {
     server.log.error(error);
     return reply.status(500).send({ error: "Failed to create session" });
@@ -54,7 +55,8 @@ server.post("/api/watson/message", async (request, reply) => {
         text: message,
       },
     });
-    return response.result.output.generic;
+
+    return reply.status(201).send(response.result.output.generic);
   } catch (error) {
     server.log.error(error);
     return reply.status(500).send({ error: "Failed to process message" });
